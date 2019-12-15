@@ -21,7 +21,7 @@ if(isset($_POST) && !empty($_POST)){
 
 
 $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
-$statement = $pdo->prepare("SELECT * FROM products");
+$statement = $pdo->prepare("SELECT * FROM produkt");
     $result = $statement->execute();
     $products = $statement->fetchAll();
 
@@ -76,7 +76,7 @@ $statement = $pdo->prepare("SELECT * FROM products");
       <?php $summe = 0;  ?>
   <?php foreach ($products as $product): ?>
     <tr>
-      <th scope="row"><?php echo $product["name"]?></th>
+      <th scope="row"><?php echo $product["produktname"]?></th>
       <td><?php echo $product["preis"]?></td>
       <td><input type="number" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION["basket"][$product["id"]]?>" name="<?php echo $product["id"]?>"></td>
       <td>

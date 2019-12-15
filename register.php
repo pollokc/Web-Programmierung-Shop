@@ -13,7 +13,7 @@
             $error = true;
         }
         if(!$error) { 
-            $statement = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+            $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
             $result = $statement->execute(array('email' => $email));
             $user = $statement->fetch();
             
@@ -24,10 +24,10 @@
         }
     
         if(!$error) {
-            $salt =  uniqid(mt_rand(),true);
-            $passwort_hash = hash('sha512',$passwort.$salt);
-            $statement = $pdo->prepare("INSERT INTO users (email, passwort, salt, vorname, nachname) VALUES (:email, :passwort, :salt, :vorname, :nachname)");
-            $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_hash, 'salt' => $salt, 'vorname' => $vorname, 'nachname' => $nachname));
+            $salz =  uniqid(mt_rand(),true);
+            $passwort_hash = hash('sha512',$passwort.$salz);
+            $statement = $pdo->prepare("INSERT INTO benutzer (email, passwort, salz, vorname, nachname) VALUES (:email, :passwort, :salz, :vorname, :nachname)");
+            $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_hash, 'salz' => $salz, 'vorname' => $vorname, 'nachname' => $nachname));
         
             if($result) {        
                 $message = 'Sie wurden erfolgreich registriert. <a class="txt2 hov1" href="index.php"><br>Zum Login</a>';

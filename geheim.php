@@ -6,7 +6,7 @@ if(empty($_SESSION["userid"]))
 }
 
 $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
-$statement = $pdo->prepare("SELECT * FROM products");
+$statement = $pdo->prepare("SELECT * FROM produkt");
     $result = $statement->execute();
     $products = $statement->fetchAll();
 
@@ -56,7 +56,6 @@ $statement = $pdo->prepare("SELECT * FROM products");
         <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
         <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
         <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="5"></li>
         </ol>
         <div class="carousel-inner">
         
@@ -65,7 +64,7 @@ $statement = $pdo->prepare("SELECT * FROM products");
             <img src="images/smoothie<?php echo $product["id"]?>.jpg" height="80%" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
             
-            <h5 style="color:#000"><?php echo $product["name"]?></h5>
+            <h5 style="color:#000"><?php echo $product["produktname"]?></h5>
             <p><?php echo $product["preis"]?></p>
             </div>
         </div>
@@ -106,7 +105,7 @@ $statement = $pdo->prepare("SELECT * FROM products");
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     <?php foreach ($products as $product): ?>
-    <a class="nav-link<?php if ($product["id"] == 1): ?> active <?php endif; ?>" id="v-pills-<?php echo $product["id"]?>-tab" data-toggle="pill" href="#v-pills-<?php echo $product["id"]?>" role="tab" aria-controls="v-pills-<?php echo $product["id"]?>" aria-selected="<?php if ($product["id"] == 1): ?> true <?php else: ?> false <?php endif ?>"><?php echo $product["name"]?></a>
+    <a class="nav-link<?php if ($product["id"] == 1): ?> active <?php endif; ?>" id="v-pills-<?php echo $product["id"]?>-tab" data-toggle="pill" href="#v-pills-<?php echo $product["id"]?>" role="tab" aria-controls="v-pills-<?php echo $product["id"]?>" aria-selected="<?php if ($product["id"] == 1): ?> true <?php else: ?> false <?php endif ?>"><?php echo $product["produktname"]?></a>
     <?php endforeach; ?>
     </div>
   </div>

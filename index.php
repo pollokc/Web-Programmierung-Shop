@@ -6,13 +6,13 @@ if(isset($_GET['login'])) {
     $email = $_POST['email'];
     $passwort = $_POST['passwort'];
     
-    $statement = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
     $result = $statement->execute(array('email' => $email));
     $user = $statement->fetch();
         
     //Überprüfung des Passworts
-    $salt =  $user['salt'];
-    $passwort_hash = hash('sha512',$passwort.$salt);
+    $salz =  $user['salz'];
+    $passwort_hash = hash('sha512',$passwort.$salz);
     if ($user !== false && $user['passwort']==$passwort_hash) {
         $_SESSION['userid'] = $user['id'];
         die('Login erfolgreich. Weiter zu <a href="geheim.php">internen Bereich</a>');
