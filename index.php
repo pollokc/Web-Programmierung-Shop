@@ -1,36 +1,28 @@
 <?php 
-session_start();
-$pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
- 
-if(isset($_GET['login'])) {
-    $email = $_POST['email'];
-    $hashedPass = $_REQUEST['hashedPass'];
-    
-    $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
-    $result = $statement->execute(array('email' => $email));
-    $user = $statement->fetch();
-        
-    //Überprüfung des Passworts
-    $salz =  $user['salz'];
-    $passwort_saltedhash = hash('sha512',$hashedPass.$salz);
-    debug_to_console($hashedPass);
-    debug_to_console($salz);
-    debug_to_console($passwort_saltedhash);
-    if ($user !== false && $user['passwort']==$passwort_saltedhash) {
-        $_SESSION['userid'] = $user['id'];
-        die('Login erfolgreich. Weiter zu <a href="geheim.php">internen Bereich</a>');
-    } else {
-        $message = "E-Mail oder Passwort war ungültig<br>";
-    }
-    
-}
-function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
+    session_start();
+    $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
+    if(isset($_GET['login'])) {
+        //Post Daten auslesen
+        $email = $_POST['email'];
+        $hashedPass = $_POST['hashedPass'];
 
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
+        //SQL get benutzer mit übergegebener Email
+        $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
+        $result = $statement->execute(array('email' => $email));
+        $user = $statement->fetch();
+
+        //Passwort hashen
+        $salz =  $user['salz'];
+        $passwort_saltedhash = hash('sha512',$hashedPass.$salz);
+
+        //Username und Passwort abgleichen
+        if ($user !== false && $user['passwort'] == $passwort_saltedhash) {
+            $_SESSION['userid'] = $user['id'];
+        die('Login erfolgreich. Weiter zu <a href="geheim.php">internen Bereich</a>');
+        } else {
+            $message = "E-Mail oder Passwort war ungültig<br>";
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

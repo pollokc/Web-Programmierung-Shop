@@ -1,49 +1,48 @@
+<!-- Überprüfung ob Passwort 1 und 2 gleich sind. -->
 <?php
     session_start();
     $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     if(isset($_GET['register'])) {
-        $error = false;
+        //Post Daten auslesen
         $email = $_POST['email'];
         $vorname = $_POST['vorname'];
         $nachname = $_POST['nachname'];
-        $hashedPass = $_REQUEST['hashedPass'];
-        if(!$error) { 
-            $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
-            $result = $statement->execute(array('email' => $email));
-            $user = $statement->fetch();
-            
-            if($user !== false) {
-                $message = 'Diese E-Mail-Adresse ist bereits vergeben';
-                $error = true;
-            }    
-        }
-    
+        $hashedPass = $POST['hashedPass'];
+
+        $error = false;
+        
+        //SQL get benutzer mit übergegebener Email
+        $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
+        $result = $statement->execute(array('email' => $email));
+        $user = $statement->fetch();
+        
+        //Überprüfen ob Nutzer bereits angemeldet ist
+        if($user !== false) {
+            $message = 'Diese E-Mail-Adresse ist bereits vergeben';
+            $error = true;
+        }    
+        
+        
         if(!$error) {
+            //Passwort hashen
             $salz =  uniqid(mt_rand(),true);
             $passwort_saltedhash = hash('sha512',$hashedPass.$salz);
+
+            //SQL insert neuer Benutzer
             $statement = $pdo->prepare("INSERT INTO benutzer (email, passwort, salz, vorname, nachname) VALUES (:email, :passwort, :salz, :vorname, :nachname)");
             $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_saltedhash, 'salz' => $salz, 'vorname' => $vorname, 'nachname' => $nachname));
-            debug_to_console($hashedPass);
-            debug_to_console($salz);
-            debug_to_console($passwort_saltedhash);
+            
+            //Nutzer über Status benachrichtigen
             if($result) {        
                 $message = 'Sie wurden erfolgreich registriert. <a class="txt2 hov1" href="index.php"><br>Zum Login</a>';
                 $betreff = "Registrierung TheJuiceBox";
                 $from = "From: TheJuiceBox <noreply@thejuicebox.de>";
                 $text = "Sie wurden erfolgreich registriert.";
-                // $email = "ohb75688@eveav.com";
                 mail($email, $betreff, $text, $from);
             } else {
                 $message = 'Beim Abspeichern ist leider ein Fehler aufgetreten<br>';
             }
         } 
-    }
-    function debug_to_console($data) {
-        $output = $data;
-        if (is_array($output))
-            $output = implode(',', $output);
-    
-        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
     }
 ?>
 <!DOCTYPE html>
