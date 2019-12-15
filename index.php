@@ -5,6 +5,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
 if(isset($_GET['login'])) {
     $email = $_POST['email'];
     $passwort = $_POST['passwort'];
+    $NumRows = $_REQUEST['hashedPass'];
     
     $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
     $result = $statement->execute(array('email' => $email));
@@ -41,7 +42,18 @@ if(isset($_GET['login'])) {
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
+
 <body>
+    <script type="text/javascript">
+        var test;
+        sha512("test").then(x => document.getElementById("hashedPass").value = x);
+        function sha512(str) {
+            return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(str)).then(buf => {
+                return Array.prototype.map.call(new Uint8Array(buf), x => (('00' + x.toString(16)).slice(-2))).join('');
+            });
+        }
+        console.log(test);    
+    </script>
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100 p-l-45 p-r-45 p-t-40 p-b-40">
@@ -66,24 +78,24 @@ if(isset($_GET['login'])) {
                         <span class="focus-input100-1"></span>
                         <span class="focus-input100-2"></span>
                     </div>
-
-                    <div class="container-login100-form-btn m-t-15">
+                    <input name="hashedPass" id="hashedPass" type="hidden" value="0"/>
+                    <!-- <div class="container-login100-form-btn m-t-15">
                         <span class="txt1">
                             <input type="checkbox">
                             Angemeldet bleiben
                         </span>
-                    </div>
+                    </div> -->
 
                     <div class="container-login100-form-btn m-t-15">
                         <input type="submit" class="login100-form-btn" value="Einloggen">
 
                     </div>
-
+                    <!-- 
                     <div class="text-center p-t-10 p-b-1">
                         <a href="#" class="txt2 hov1">
                             Passwort vergessen?
                         </a>
-                    </div>
+                    </div> -->
 
                     <div class="text-center">
                         <span class="txt1">
@@ -98,7 +110,7 @@ if(isset($_GET['login'])) {
             </div>
         </div>
     </div>
-    
+
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="vendor/animsition/js/animsition.min.js"></script>
     <script src="vendor/bootstrap/js/popper.js"></script>

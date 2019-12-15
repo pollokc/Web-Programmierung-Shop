@@ -31,6 +31,11 @@
         
             if($result) {        
                 $message = 'Sie wurden erfolgreich registriert. <a class="txt2 hov1" href="index.php"><br>Zum Login</a>';
+                $betreff = "Registrierung TheJuiceBox";
+                $from = "From: TheJuiceBox <noreply@thejuicebox.de>";
+                $text = "Sie wurden erfolgreich registriert.";
+                // $email = "ohb75688@eveav.com";
+                mail($email, $betreff, $text, $from);
             } else {
                 $message = 'Beim Abspeichern ist leider ein Fehler aufgetreten<br>';
             }
@@ -99,19 +104,18 @@
                         <span class="focus-input100-1"></span>
                         <span class="focus-input100-2"></span>
                     </div>
-
                     <div class="container-login100-form-btn m-t-15">
                         <input class="login100-form-btn" type="submit" value="Registrieren">
                     </div>
 
-                    <div class="text-center p-t-10 p-b-1">
+                    <!-- <div class="text-center p-t-10 p-b-1">
                         <span class="txt1">
                             Oder
                         </span>
                         <a href="#" class="txt2 hov1">
                             Passwort vergessen?
                         </a>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

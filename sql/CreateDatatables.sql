@@ -39,7 +39,7 @@ CREATE TABLE bestellung(
 	bestelldatum DATETIME
 );
 
-CREATE TABLE besttelung_hat_produkte(
+CREATE TABLE bestellung_hat_produkte(
 	bestellungid int,
 	FOREIGN KEY (bestellungid) REFERENCES bestellung(id),
 	produktid int,
