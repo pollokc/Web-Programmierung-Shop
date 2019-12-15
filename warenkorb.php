@@ -64,7 +64,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="#">Home</a>
       <a class="nav-item nav-link active" href="#">Warenkorb<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Penisse</a>
+      <a class="nav-item nav-link" href="#">Meine Bestellungen</a>
     </div>
   </div>
 </nav>
@@ -84,7 +84,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <tr>
       <th scope="row"><?php echo $product["produktname"]?></th>
       <td><?php echo $product["preis"]?></td>
-      <td><input type="number" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION["basket"][$product["id"]]?>" name="<?php echo $product["id"]?>"></td>
+      <td><input type="number" min="0" max="100" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION["basket"][$product["id"]]?>" name="<?php echo $product["id"]?>"></td>
       <td>
           <?php
 
