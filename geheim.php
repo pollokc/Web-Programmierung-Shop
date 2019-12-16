@@ -19,7 +19,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <title>The Juice Box</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="images/smoothie64.png">
+    <link rel="icon" type="image/png" href="images/icon/smoothie64.png">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
@@ -61,7 +61,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
         
         <?php foreach ($products as $product): ?>
         <div class="carousel-item <?php if ($product["id"] == 1): ?> active <?php endif; ?>">
-            <img src="images/smoothie<?php echo $product["id"]?>.jpg" height="80%" class="d-block w-100">
+            <img src="images/carousel/smoothie<?php echo $product["id"]?>.jpg" height="80%" class="d-block w-100">
             <div class="carousel-caption d-none d-md-block">
             
             <h5 style="color:#000"><?php echo $product["produktname"]?></h5>
@@ -113,7 +113,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <div class="tab-content" id="v-pills-tabContent">
     <?php foreach ($products as $product): ?>
         <div class="tab-pane fade<?php if ($product["id"] == 1): ?> show active <?php endif; ?>" id="v-pills-<?php echo $product["id"]?>" role="tabpanel" aria-labelledby="v-pills-<?php echo $product["id"]?>-tab">
-        <img src="images/smoothie<?php echo $product["id"]?>.jpg" height="80%" class="w-100">
+        <img src="images/carousel/smoothie<?php echo $product["id"]?>.jpg" height="80%" class="w-100">
         <p class="mt-3"><?php echo $product["beschreibung"]?></p>
         <p class="mt-3">Preis: <?php echo $product["preis"]?> € </p>
         <p class="mt-3">
