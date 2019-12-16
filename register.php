@@ -28,7 +28,7 @@
             $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_saltedhash, 'salz' => $salz, 'vorname' => $vorname, 'nachname' => $nachname));
             //Nutzer über Status benachrichtigen
             if($result) {        
-                $message = 'Sie wurden erfolgreich registriert. <a class="txt2 hov1" href="index.php"><br>Zum Login</a>';
+                $message = 'Sie wurden erfolgreich registriert. <a style="color: #000000;" href="index.php"><br>Zum Login</a>';
                 //HIER EMAIL SENDEN
                 // $betreff = "Registrierung TheJuiceBox";
                 // $from = "From: TheJuiceBox <noreply@thejuicebox.de>";
