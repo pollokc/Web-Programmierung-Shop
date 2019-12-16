@@ -5,7 +5,6 @@
         //Post Daten auslesen
         $email = $_POST['email'];
         $hashedPass = $_POST['hashedPass'];
-        debug_to_console($hashedPass);
         //SQL get benutzer mit übergegebener Email
         $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
         $result = $statement->execute(array('email' => $email));
@@ -16,16 +15,11 @@
         //Username und Passwort abgleichen
         if ($user !== false && $user['passwort'] == $passwort_saltedhash) {
             $_SESSION['userid'] = $user['id'];
-        die('Login erfolgreich. Weiter zu <a href="geheim.php">internen Bereich</a>');
+            header("Location: geheim.php");
+            die();
         } else {
             $error = "E-Mail oder Passwort war ungültig<br>";
         }
-    }
-    function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
     }
 ?>
 <!DOCTYPE html>
