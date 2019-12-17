@@ -1,6 +1,4 @@
 Bugs:
-- Login und Register nicht mittig
-- Register bekommt das hashedPassword nicht ausgeleseen
 
 
 ToDos:
