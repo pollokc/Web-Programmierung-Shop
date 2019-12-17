@@ -50,7 +50,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="#">Warenkorb</a>
-      <a class="nav-item nav-link" href="#">Meine Bestellungen Penis </a>
+      <a class="nav-item nav-link" href="#">Meine Bestellungen</a>
     </div>
   </div>
 </nav>
@@ -72,7 +72,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
             <div class="carousel-caption d-none d-md-block">
             
             <h5 style="color:#000"><?php echo $product["produktname"]?></h5>
-            <p><?php echo $product["preis"]?></p>
+            <!-- <p><//?php echo $product["preis"]?></p> -->
             </div>
         </div>
         <?php endforeach; ?>
@@ -93,7 +93,6 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <!-- Button trigger modal -->
 <center><button type="button" class="btn btn-danger mt-3" data-toggle="modal" data-target="#exampleModal">
  Jetzt bestellen
-</button>
 </center>
 <!-- Modal -->
 <form action="warenkorb.php" method="post">
@@ -156,6 +155,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <script src="vendor/daterangepicker/daterangepicker.js"></script>
     <script src="vendor/countdowntime/countdowntime.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/probe.js"></script>
 
 </body>
 </hmtl>
