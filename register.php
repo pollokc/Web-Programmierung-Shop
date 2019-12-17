@@ -4,11 +4,10 @@
     $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     if(isset($_GET['register'])) {
         //Post Daten auslesen
-        debug_to_console("Test1");
         $email = $_POST['email'];
         $vorname = $_POST['vorname'];
         $nachname = $_POST['nachname'];
-        $hashedPass = $POST['hashedPass'];
+        $hashedPass = $_POST['hashedPass'];
         $error = false;
         //SQL get benutzer mit übergegebener Email
         $statement = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email");
@@ -16,7 +15,7 @@
         $user = $statement->fetch();
         //Überprüfen ob Nutzer bereits angemeldet ist
         if($user !== false) {
-            $error = 'Diese E-Mail-Adresse ist bereits vergeben';
+            $errorMessage = 'Diese E-Mail-Adresse ist bereits vergeben!';
             $error = true;
         }    
         if(!$error) {
@@ -35,16 +34,9 @@
                 // $text = "Sie wurden erfolgreich registriert.";
                 // mail($email, $betreff, $text, $from);
             } else {
-                $error = 'Beim Abspeichern ist leider ein Fehler aufgetreten<br>';
+                $errorMessage = 'Beim Abspeichern ist leider ein Fehler aufgetreten!';
             }
         } 
-    }
-    function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
-
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
     }
 ?>
 <!DOCTYPE html>
@@ -64,6 +56,8 @@
     <!-- Restliche Settings -->
     <link rel="stylesheet" href="css/indexregister.css">
     <script src="js/sha512Encrypt.js" type="text/javascript"></script>
+</head>
+<body>
     <!-- Clientside Hashing -->
     <script type="text/javascript">
         function passEncrypt() {
@@ -71,8 +65,6 @@
             document.getElementById("hashedPass").value = hashedPassword;
         }   
     </script>
-</head>
-<body>
     <div class="loginBody">
         <div class="modal-dialog text-center">
             <div class="col-sm-8 main-section">
@@ -83,8 +75,8 @@
                     <form class="col-12" onsubmit="passEncrypt()" action="?register=1" method="post">
                         <div class="form-group error">
                                 <?php 
-                                    if(isset($error)) {
-                                        echo $error;}
+                                    if(isset($errorMessage)) {
+                                        echo $errorMessage;}
                                 ?>
                         </div>
                         <div class="form-group success">
