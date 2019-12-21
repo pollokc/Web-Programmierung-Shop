@@ -1,5 +1,6 @@
 <?php 
     session_start();
+
     $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     if(isset($_GET['login'])) {
         //Post Daten auslesen
@@ -15,6 +16,10 @@
         //Username und Passwort abgleichen
         if ($user !== false && $user['passwort'] == $passwort_saltedhash) {
             $_SESSION['userid'] = $user['id'];
+            //Logged_in setzen
+            $statement = $pdo->prepare("UPDATE benutzer SET logged_in = :logged_in WHERE email = :email");
+            $statement->execute(array('logged_in' => 1, 'email' => $email));
+            
             header("Location: geheim.php");
             die();
         } else {

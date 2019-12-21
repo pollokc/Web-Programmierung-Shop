@@ -60,11 +60,15 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">Home</a>
-      <a class="nav-item nav-link active" href="#">Warenkorb<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Meine Bestellungen</a>
+  <ul class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <ul class="navbar-nav  mr-auto mt-2 mt-lg-0">
+      <a class="nav-item nav-link" href="geheim.php">Home</a>
+      <a class="nav-item nav-link active" href="warenkorb.php">Warenkorb<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="meineBestellungen.php">Meine Bestellungen</a>         
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+      Aktuell sind &nbsp; <span id="logged_in"></span> &nbsp; Benutzer online &nbsp;
+      <a class="btn btn-outline-danger my-2 my-sm-0" href="logout.php" role="button">Logout</a>
     </div>
   </div>
 </nav>
@@ -149,7 +153,18 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     
 </form>
 
-
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="vendor/animsition/js/animsition.min.js"></script>
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/probe.js"></script>
+    <script src="js/logged_in.js"></script>
+    <script src="js/scrolldown.js"></script>
 
 
 </body>

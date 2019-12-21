@@ -1,6 +1,13 @@
 <!-- Überprüfung ob Passwort 1 und 2 gleich sind. -->
 <?php
     session_start();
+    if(!empty($_SESSION["userid"]))
+    {
+        header("Location: http://localhost/Web-Programmierung-Shop/geheim.php");
+    }
+
+    require_once "emailsenden.php";
+    
     $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     if(isset($_GET['register'])) {
         //Post Daten auslesen
@@ -22,17 +29,18 @@
             //Passwort mit Salz hashen
             $salz =  uniqid(mt_rand(),true);
             $passwort_saltedhash = hash('sha512',$hashedPass.$salz);
+            //Variablen erstellen für Datum
+            $created_at = $last_login = date('Y-m-d H:i:s', time());
+
             //SQL insert neuer Benutzer
-            $statement = $pdo->prepare("INSERT INTO benutzer (email, passwort, salz, vorname, nachname) VALUES (:email, :passwort, :salz, :vorname, :nachname)");
-            $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_saltedhash, 'salz' => $salz, 'vorname' => $vorname, 'nachname' => $nachname));
+            $statement = $pdo->prepare("INSERT INTO benutzer (email, passwort, salz, vorname, nachname, last_login, created_at) VALUES (:email, :passwort, :salz, :vorname, :nachname, :last_login, :created_at)");
+            $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_saltedhash, 'salz' => $salz, 'vorname' => $vorname, 'nachname' => $nachname, 'last_login' => $last_login, 'created_at' => $created_at));
             //Nutzer über Status benachrichtigen
             if($result) {        
-                $message = 'Sie wurden erfolgreich registriert. <a style="color: #000000;" href="index.php"><br>Zum Login</a>';
-                //HIER EMAIL SENDEN
-                // $betreff = "Registrierung TheJuiceBox";
-                // $from = "From: TheJuiceBox <noreply@thejuicebox.de>";
-                // $text = "Sie wurden erfolgreich registriert.";
-                // mail($email, $betreff, $text, $from);
+                $message = 'Sie wurden erfolgreich registriert. <a style="color: #000000;" href="http://localhost/Web-Programmierung-Shop/index.php"><br>Zum Login</a>';
+
+                senden($email, "Registrierungsbestätigung", $message);
+
             } else {
                 $errorMessage = 'Beim Abspeichern ist leider ein Fehler aufgetreten!';
             }
