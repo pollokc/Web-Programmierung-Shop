@@ -1,5 +1,6 @@
 Bugs:
-
+- Registrierung Passwörter können unterschiedlich sein
 
 ToDos:
 - Abhängigkeiten zu "vendor", "map-custom.js", "main.js", "main.css", "style.css", "util.css" in geheim und warenkorb aufheben und löschen
+- geheim umbennen
