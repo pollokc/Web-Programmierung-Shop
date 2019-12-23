@@ -6,7 +6,8 @@ CREATE TABLE benutzer(
 	vorname varchar(255),
 	nachname varchar(255),
 	last_login DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	logged_in int(1) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE adresse(
