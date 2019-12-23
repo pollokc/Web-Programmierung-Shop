@@ -71,7 +71,7 @@
         function passEncrypt() {
             var hashedPassword = SHA512(document.getElementById("passwort").value);
             document.getElementById("hashedPass").value = hashedPassword;
-        }   
+        } 
     </script>
     <div class="loginBody">
         <div class="modal-dialog text-center">
@@ -103,11 +103,28 @@
                             <input type="text" class="form-control" name="nachname" placeholder="Nachname eintragen" required>
                         </div>
                         <div class="form-group">
-                            <input type="password"  class="form-control" id="passwort" placeholder="Passwort eintragen" required>
+                            <input type="password"  class="form-control" id="passwort" placeholder="Passwort eintragen" required oninput="checkPasswort()">
                         </div>
                         <div class="form-group">
-                            <input type="password"  class="form-control" id="passwort2" placeholder="Passwort wiederholen" required>
+                            <input type="password"  class="form-control" id="passwort2" placeholder="Passwort wiederholen" required oninput="checkPasswort()">
                         </div>
+                        <script type='text/javascript'>
+                            function checkPasswort() {
+                                try{
+                                    var passwort = document.getElementById('passwort');
+                                    var passwort2 = document.getElementById('passwort2')
+                                    if (passwort.value != passwort2.value) {
+                                        passwort2.setCustomValidity('Passwörter stimmen nicht überein!');
+                                    } else {
+                                        passwort2.setCustomValidity('');
+                                    }
+                                }
+                                catch(e){
+                                    console.log(e);
+                                }
+                                
+                            }
+                        </script>
                         <button type="submit" class="btn">Registrieren</button>
                         <div class="col-12 register-login">
                             <a href="index.php">Bereits registriert? Login</a>
