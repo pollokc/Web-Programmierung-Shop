@@ -52,7 +52,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
   </button>
   <ul class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <ul class="navbar-nav  mr-auto mt-2 mt-lg-0">
-      <a class="nav-item nav-link active" href="geheim.php">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" href="main.php">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="warenkorb.php">Warenkorb</a>
       <a class="nav-item nav-link" href="meineBestellungen.php">Meine Bestellungen</a>         
     </ul>

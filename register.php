@@ -3,7 +3,7 @@
     session_start();
     if(!empty($_SESSION["userid"]))
     {
-        header("Location: http://localhost/Web-Programmierung-Shop/geheim.php");
+        header("Location: http://localhost/Web-Programmierung-Shop/main.php");
     }
 
     require_once "emailsenden.php";

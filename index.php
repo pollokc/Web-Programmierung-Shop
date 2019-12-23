@@ -20,7 +20,7 @@
             $statement = $pdo->prepare("UPDATE benutzer SET logged_in = :logged_in WHERE email = :email");
             $statement->execute(array('logged_in' => 1, 'email' => $email));
             
-            header("Location: geheim.php");
+            header("Location: main.php");
             die();
         } else {
             $error = "E-Mail oder Passwort war ungültig<br>";
