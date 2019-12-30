@@ -1,0 +1,15 @@
+.welcome-Text{
+    background-color: #ffffff;
+    padding: 10px 0px 10px 15px;
+}
+.card{
+    width: 500px;
+    height: 425px;
+}
+.card-img-top{
+    width: 100px;
+    height: 100px;
+}
+.price-text{
+    margin: 0;
+}
