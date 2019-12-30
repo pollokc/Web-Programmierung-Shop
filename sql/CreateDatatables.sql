@@ -10,23 +10,12 @@ CREATE TABLE benutzer(
 	logged_in int(1) NOT NULL DEFAULT 0
 );
 
-CREATE TABLE adresse(
-	id int PRIMARY KEY AUTO_INCREMENT,
-	benutzerid int,
-	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
-	vornachname varchar(255),
-	zusatzinfo varchar(255),
-	strasse varchar(255),
-	hausnummer varchar(25),
-	plz char(6),
-	ort varchar(255)
-);
-
 CREATE TABLE produkt(
 	id int PRIMARY KEY AUTO_INCREMENT,
 	produktname varchar(255),
 	preis float,
-	beschreibung varchar(255)
+	beschreibung varchar(1000),
+	hersteller varchar(255)
 );
 
 CREATE TABLE bestellung(
@@ -37,7 +26,14 @@ CREATE TABLE bestellung(
 	FOREIGN KEY (lieferadresse) REFERENCES adresse(id),
 	rechnungsadresse int,
 	FOREIGN KEY (rechnungsadresse) REFERENCES adresse(id),
-	bestelldatum DATETIME
+	expresslieferung int(1),
+	bestelldatum DATETIME,
+	vornachname varchar(255),
+	zusatzinfo varchar(255),
+	strasse varchar(255),
+	hausnummer varchar(25),
+	plz char(6),
+	ort varchar(255)
 );
 
 CREATE TABLE bestellung_hat_produkte(
@@ -47,4 +43,13 @@ CREATE TABLE bestellung_hat_produkte(
 	FOREIGN KEY (produktid) REFERENCES produkt(id),
 	menge int,
 	PRIMARY KEY (bestellungid, produktid)
+);
+
+CREATE TABLE warenkorb(
+	id int PRIMARY KEY AUTO_INCREMENT,
+	benutzerid int ,
+	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
+	produktid int,
+	FOREIGN KEY (produktid) REFERENCES produkt(id),
+	menge int
 );

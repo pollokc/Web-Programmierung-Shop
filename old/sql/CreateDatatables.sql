@@ -26,8 +26,7 @@ CREATE TABLE produkt(
 	id int PRIMARY KEY AUTO_INCREMENT,
 	produktname varchar(255),
 	preis float,
-	beschreibung varchar(1000),
-	hersteller varchar(255)
+	beschreibung varchar(255)
 );
 
 CREATE TABLE bestellung(
@@ -48,13 +47,4 @@ CREATE TABLE bestellung_hat_produkte(
 	FOREIGN KEY (produktid) REFERENCES produkt(id),
 	menge int,
 	PRIMARY KEY (bestellungid, produktid)
-);
-
-CREATE TABLE warenkorb(
-	id int PRIMARY KEY AUTO_INCREMENT,
-	benutzerid int ,
-	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
-	produktid int,
-	FOREIGN KEY (produktid) REFERENCES produkt(id),
-	menge int
 );

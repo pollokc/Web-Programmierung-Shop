@@ -9,6 +9,6 @@ $statement->execute(array('last_login' => date('Y-m-d H:i:s', time()),'logged_in
 session_unset();
 session_destroy();
 
-header("Location: http://localhost/Web-Programmierung-Shop/index.php");
+header("Location: index.php");
 
 ?>

@@ -3,8 +3,10 @@
     session_start();
     if(!empty($_SESSION["userid"]))
     {
-        header("Location: main.php");
+        header("Location: http://localhost/Web-Programmierung-Shop/main.php");
     }
+
+    require_once "emailsenden.php";
     
     $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     if(isset($_GET['register'])) {
@@ -37,7 +39,7 @@
             if($result) {        
                 $message = 'Sie wurden erfolgreich registriert. <a style="color: #000000;" href="http://localhost/Web-Programmierung-Shop/index.php"><br>Zum Login</a>';
 
-                // senden($email, "Registrierungsbestätigung", $message);
+                senden($email, "Registrierungsbestätigung", $message);
 
             } else {
                 $errorMessage = 'Beim Abspeichern ist leider ein Fehler aufgetreten!';

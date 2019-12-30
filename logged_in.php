@@ -6,5 +6,5 @@ $statement = $pdo->prepare("SELECT COUNT(*) FROM benutzer WHERE logged_in = :log
 $statement->execute(array("logged_in" => 1));
 $number = $statement->fetchColumn();
 
-echo $number;
+echo "Aktuell sind ".$number." Benutzer online";
 ?>
