@@ -11,6 +11,7 @@ session_start();
 if(empty($_SESSION["userid"]))
 {
     header("Location: index.php");
+    die();
 }
 
 $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
@@ -39,6 +40,10 @@ if (isset($_GET['action']) and $_GET['action']=='addCart') {
   else{
     $insertProduct = $pdo->prepare("INSERT INTO `warenkorb`(`benutzerid`, `produktid`, `menge`) VALUES (:user,:product,1)");
     $insertProduct->execute(array('user' => $userid, 'product' => $productid));
+  }
+  if(isset($_GET['fast'])){
+    header("Location: warenkorb.php");
+    die();
   }
 }
 ?>
@@ -126,7 +131,7 @@ if (isset($_GET['action']) and $_GET['action']=='addCart') {
               <p class="card-text"><?php echo $product["beschreibung"]?></p>
               <p class="card-text price-text"><?php echo $product["preis"] ?>€</p>
               <div class="card-buttons">
-                <a href="warenkorb.php" class="btn btn-outline-primary mt-3">Jetzt bestellen!</a>
+                <a class="btn btn-outline-primary mt-3" href="?action=addCart&id=<?php echo $product["id"] ?>&fast=true">Jetzt bestellen!</a>
                 <a class="btn btn-outline-secondary mt-3" href="?action=addCart&id=<?php echo $product["id"] ?>">Warenkorb hinzufügen!</a>
               </div>
             </div>

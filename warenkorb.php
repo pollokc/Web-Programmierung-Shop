@@ -13,6 +13,16 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     $produktStatement = $pdo->prepare("SELECT * FROM `produkt`");
     $produktStatement->execute(array('id' => $_SESSION['userid']));
     $products = $produktStatement->fetchAll();
+
+
+
+  if (isset($_GET['action']) and $_GET['action']=='delete') {
+  $userid = $_SESSION["userid"];
+  $productid = $_GET['id'];
+  $deleteItem = $pdo->prepare("DELETE FROM warenkorb WHERE benutzerid = :user AND id = :product");
+  $deleteItem->execute(array('user' => $userid, 'product' => $productid));
+  header("Location: warenkorb.php");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -67,6 +77,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
               <th scope="col"></th>
               <th scope="col">Einzelpreis</th>
               <th scope="col">Anzahl</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -75,7 +86,8 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
               <td class="image-tablecell"><center><img src="images/products/product<?php echo $product["produktid"]?>.png" alt ="" class="produkt-img"></center></td>
               <th scope="row"><?php echo $products[$product["produktid"]-1]["hersteller"]." ".$products[$product["produktid"]-1]["produktname"]?></th>
               <td><?php echo $products[$product["produktid"]-1]["preis"]." €"?></td>
-              <td><input type="number" min="0" max="100" class="form-control mb-2 mr-sm-2 number-tablecell" value="<?php echo $product["menge"]?>" name="<?php echo $product["id"]?>"></td>
+              <td><input type="number" min="1" max="100" class="form-control mb-2 mr-sm-2 number-tablecell" value="<?php echo $product["menge"]?>" name="<?php echo $product["id"]?>"></td>
+              <td><a href="?action=delete&id=<?php echo $product["id"] ?>"><img src="images/icon/delete.png" width=30 height=auto></a></td>
             </tr>
             <?php endforeach; ?>
           </tbody>
@@ -84,6 +96,17 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     </div>
 
     <div class="rightcolumn">
+      <div class="checkout-sum">
+      <?php 
+      $anzahlProdukte = 0;
+      $gesamtSumme = 0.0;
+      foreach ($userWarenkorb as $product){
+        $anzahlProdukte = $anzahlProdukte + $product["menge"];
+        $gesamtSumme = $gesamtSumme + $product["menge"]*$products[$product["produktid"]-1]["preis"];
+      }
+      echo "Summe (".$anzahlProdukte." Artikel): <strong>".$gesamtSumme."€</strong>";
+      ?>
+      </div>
       <div class="checkout-form">
         <form action="" method="post">
           <div class="form-group">
@@ -103,7 +126,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
             <label for="stadt">Stadt</label>
             <input type="text" class="form-control" id="stadt">
           </div>
-          <div class="form-check">
+          <div class="form-check mb-2">
             <input type="checkbox" class="form-check-input" id="expressCheck">
             <label class="form-check-label" for="expressCheck">Express-Versand (zzgl. 5 €)</label>
           </div>

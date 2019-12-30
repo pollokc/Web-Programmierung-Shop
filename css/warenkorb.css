@@ -68,3 +68,11 @@ footer{
 .checkout-form{
     margin: 0 15px 0 15px;
 }
+.checkout-sum{
+  margin: 0 15px 0 15px;
+  
+}
+.checkout-sum{
+  font-size: 22px;
+  margin-bottom: 25px;
+}
