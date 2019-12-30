@@ -51,7 +51,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
         <a class="nav-link" href="bestellungen.php">Meine Bestellungen</a>
       </li>
     </ul>
-    <span id="logged_in"></span>&nbsp;<br>
+    
     <a class="btn btn-outline-primary" href="logout.php" role="button">Logout</a>     
   </span>
   </nav>
@@ -111,5 +111,10 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     </div></center>
     
 </main>
+<footer>
+  <div class="logged-in-text">
+    <span id="logged_in"></span>&nbsp;<br>
+  </div>
+</footer>
 </body>
 </html>
