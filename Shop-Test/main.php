@@ -93,7 +93,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
         <div class="col-sm mb-5">
           <div class="card">
             <div class="card-image">
-              <img src="images/products/truefruits/truefruits<?php echo $product["id"]?>.png" class="card-img-top">
+              <img src="images/products/product<?php echo $product["id"]?>.png" class="card-img-top">
             </div>
               <div class="card-body">
               <h5 class="card-title"><?php echo $product["hersteller"].' '.$product["produktname"]?></h5>
