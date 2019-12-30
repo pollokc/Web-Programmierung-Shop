@@ -86,8 +86,8 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     </a>
     <script src="js/scrolldown.js"></script>
     </center>
-
-    <div class="container-fluid" id="produktuebersicht">
+    <center>
+      <div class="container-fluid" id="produktuebersicht">
       <div class= "row d-inline-flex">
         <?php foreach ($products as $product): ?>
         <div class="col-sm mb-5">
@@ -108,7 +108,8 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
           </div>
       <?php endforeach; ?>
       </div>
-    </div>
+    </div></center>
+    
 </main>
 </body>
 </html>
