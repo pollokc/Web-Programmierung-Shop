@@ -32,46 +32,41 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
 
 <head>
     <!-- Bootstrap Abhängikeiten -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <script src="bootstrap/js/jquery.min.js"></script>
-    <script src="bootstrap/js/popper.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Default Settings -->
-    <title>The Juice Box</title>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="images/icon/smoothie64.png">
-    <link rel="stylesheet" href="css/default.css">
-
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <script src="bootstrap/js/jquery.min.js"></script>
+  <script src="bootstrap/js/popper.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Default Settings -->
+  <title>The Juice Box</title>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="images/icon/smoothie64.png">
+  <link rel="stylesheet" href="css/default.css">
+  <!-- Sonstige Settings -->
+  <script src="js/logged_in.js"></script>
+  <link rel="stylesheet" href="css/warenkorb.css">
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">The Juice Box</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <ul class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <ul class="navbar-nav  mr-auto mt-2 mt-lg-0">
-      <a class="nav-item nav-link" href="main.php">Home</a>
-      <a class="nav-item nav-link active" href="warenkorb.php">Warenkorb<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="meineBestellungen.php">Meine Bestellungen</a>         
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="main.php"><img src="images/icon/smoothie512.png" width="35" height="35" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="warenkorb.php">Warenkorb</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="bestellungen.php">Meine Bestellungen</a>
+      </li>
     </ul>
-    <div class="form-inline my-2 my-lg-0">
-      Aktuell sind &nbsp; <span id="logged_in"></span> &nbsp; Benutzer online &nbsp;
-      <a class="btn btn-outline-danger my-2 my-sm-0" href="logout.php" role="button">Logout</a>
-    </div>
-  </div>
-</nav>
+    
+    <a class="btn btn-outline-primary" href="logout.php" role="button">Logout</a>     
+  </span>
+  </nav>
+</header> <!-- Ende der Navigation und Willkomens-Label  -->
 <form action="" method="post">
 <table class="table table-hover">
   <thead>
@@ -152,20 +147,10 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
 </table>
     
 </form>
-
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script src="vendor/animsition/js/animsition.min.js"></script>
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="vendor/daterangepicker/daterangepicker.js"></script>
-    <script src="vendor/countdowntime/countdowntime.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/probe.js"></script>
-    <script src="js/logged_in.js"></script>
-    <script src="js/scrolldown.js"></script>
-
-
+<footer>
+  <div class="logged-in-text">
+    <span id="logged_in"></span>&nbsp;<br>
+  </div>
+</footer>
 </body>
 </html>

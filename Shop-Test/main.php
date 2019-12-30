@@ -1,4 +1,12 @@
 <?php
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('Output: ".$output. "' );</script>";
+}
+
 session_start();
 if(empty($_SESSION["userid"]))
 {
@@ -14,6 +22,25 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     $statement = $pdo->prepare("SELECT * FROM benutzer WHERE id = :id");
     $statement->execute(array('id' => $_SESSION['userid']));
     $user = $statement->fetch();
+
+
+if (isset($_GET['action']) and $_GET['action']=='addCart') {
+  $userid = $_SESSION["userid"];
+  $productid = $_GET['id'];
+  $getWarenkorb = $pdo->prepare("SELECT * FROM warenkorb WHERE benutzerid = :user AND produktid = :product");
+  $getWarenkorb->execute(array('user' => $userid, 'product' => $productid));
+  $warenkorb = $getWarenkorb->fetch();
+  if(!empty($warenkorb)){
+    $menge = $warenkorb['menge'];
+    $menge++;
+    $insertProduct = $pdo->prepare("UPDATE `warenkorb` SET `menge`= :menge WHERE benutzerid = :user AND produktid = :product");
+    $insertProduct->execute(array('menge' => $menge, 'user' => $userid, 'product' => $productid));
+  }
+  else{
+    $insertProduct = $pdo->prepare("INSERT INTO `warenkorb`(`benutzerid`, `produktid`, `menge`) VALUES (:user,:product,1)");
+    $insertProduct->execute(array('user' => $userid, 'product' => $productid));
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -31,7 +58,6 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
   <link rel="stylesheet" href="css/default.css">
   <!-- Sonstige Settings -->
   <script src="js/logged_in.js"></script>
-  
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -101,7 +127,7 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
               <p class="card-text price-text"><?php echo $product["preis"] ?>€</p>
               <div class="card-buttons">
                 <a href="warenkorb.php" class="btn btn-outline-primary mt-3">Jetzt bestellen!</a>
-                <button type="button" class="btn btn-outline-secondary mt-3" data-toggle="modal" data-target="#exampleModal"> Warenkorb hinzufügen! </button>
+                <a class="btn btn-outline-secondary mt-3" href="?action=addCart&id=<?php echo $product["id"] ?>">Warenkorb hinzufügen!</a>
               </div>
             </div>
             </div>

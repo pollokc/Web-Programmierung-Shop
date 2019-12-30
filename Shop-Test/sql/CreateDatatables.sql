@@ -49,3 +49,12 @@ CREATE TABLE bestellung_hat_produkte(
 	menge int,
 	PRIMARY KEY (bestellungid, produktid)
 );
+
+CREATE TABLE warenkorb(
+	id int PRIMARY KEY AUTO_INCREMENT,
+	benutzerid int ,
+	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
+	produktid int,
+	FOREIGN KEY (produktid) REFERENCES produkt(id),
+	menge int
+);
