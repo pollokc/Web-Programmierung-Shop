@@ -20,18 +20,13 @@ CREATE TABLE produkt(
 
 CREATE TABLE bestellung(
 	id int PRIMARY KEY AUTO_INCREMENT,
-	benutzerid int ,
+	benutzerid int,
 	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
-	lieferadresse int,
-	FOREIGN KEY (lieferadresse) REFERENCES adresse(id),
-	rechnungsadresse int,
-	FOREIGN KEY (rechnungsadresse) REFERENCES adresse(id),
 	expresslieferung int(1),
 	bestelldatum DATETIME,
 	vornachname varchar(255),
 	zusatzinfo varchar(255),
 	strasse varchar(255),
-	hausnummer varchar(25),
 	plz char(6),
 	ort varchar(255)
 );

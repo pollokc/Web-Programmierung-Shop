@@ -1,5 +1,4 @@
 <?php
-//print_r($_POST);
 session_start();
 if(empty($_SESSION["userid"]))
 {
@@ -7,14 +6,17 @@ if(empty($_SESSION["userid"]))
 }
 
 $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
-$statement = $pdo->prepare("SELECT * FROM produkt");
-    $result = $statement->execute();
-    $products = $statement->fetchAll();
+    $warenkorb = $pdo->prepare("SELECT * FROM `warenkorb` WHERE benutzerid = :id;");
+    $warenkorb->execute(array('id' => $_SESSION['userid']));
+    $userWarenkorb = $warenkorb->fetchAll();
 
+    $produktStatement = $pdo->prepare("SELECT * FROM `produkt`");
+    $produktStatement->execute(array('id' => $_SESSION['userid']));
+    $products = $produktStatement->fetchAll();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <!-- Bootstrap Abhängikeiten -->
@@ -52,88 +54,69 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <a class="btn btn-outline-primary" href="logout.php" role="button">Logout</a>     
   </span>
   </nav>
-</header> <!-- Ende der Navigation und Willkomens-Label  -->
+</header> <!-- Ende der Navigation  -->
+<main>
+  <div class="row">
 
-<form action="" method="post">
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Smoothie</th>
-      <th scope="col">Einzelpreis</th>
-      <th scope="col">Anzahl</th>
-      <th scope="col">Gesamtpreis</th>
-    </tr>
-  </thead>
-  <tbody>
-      <?php $summe = 0;  ?>
-  <?php foreach ($products as $product): ?>
-    <tr>
-      <th scope="row"><?php echo $product["produktname"]?></th>
-      <td><?php echo $product["preis"]?></td>
-      <td><input type="number" min="0" max="100" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION["basket"][$product["id"]]?>" name="<?php echo $product["id"]?>"></td>
-      <td>
-          <?php
+    <div class="leftcolumn">
+      <div class="product-table">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Smoothies</th>
+              <th scope="col"></th>
+              <th scope="col">Einzelpreis</th>
+              <th scope="col">Anzahl</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($userWarenkorb as $product): ?>
+            <tr>
+              <td class="image-tablecell"><center><img src="images/products/product<?php echo $product["produktid"]?>.png" alt ="" class="produkt-img"></center></td>
+              <th scope="row"><?php echo $products[$product["produktid"]-1]["hersteller"]." ".$products[$product["produktid"]-1]["produktname"]?></th>
+              <td><?php echo $products[$product["produktid"]-1]["preis"]." €"?></td>
+              <td><input type="number" min="0" max="100" class="form-control mb-2 mr-sm-2 number-tablecell" value="<?php echo $product["menge"]?>" name="<?php echo $product["id"]?>"></td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-          if(empty($_SESSION["basket"][$product["id"]]))
-          {
-              echo "0.00 €";
-          } else {
-              $summe += $product["preis"] * $_SESSION["basket"][$product["id"]];
-              echo $product["preis"] * $_SESSION["basket"][$product["id"]] . " €";
-          }
-          ?>
-          </td>
-    </tr>
-    <?php endforeach; ?> 
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><div class="form-check">
-        <input class="form-check-input" type="checkbox" name="express" <?php if(!empty($_SESSION["basket"]["express"])): ?>checked <?php endif; ?>> 
-        <label class="form-check-label" for="defaultCheck1">
-            Express-Versand (zzgl. 5 €)
-        </label>
-        </div>
-        <small>Ist Express nicht angekreuzt, <br> wird die Bestellung normal veschickt</small>
-    </td>
-    </tr>
+    <div class="rightcolumn">
+      <div class="checkout-form">
+        <form action="" method="post">
+          <div class="form-group">
+            <label for="name">Vorname und Nachname</label>
+            <input type="text" class="form-control" id="name">
+          </div>
+          <div class="form-group">
+            <label for="anschrift">Anschrift</label>
+            <input type="text" class="form-control" id="anschrift" placeholder="Firma, c/o, Gebäude, Zusatzinfo">
+            <input type="text" class="form-control mt-1" id="straße" placeholder="Straße und Hausnummer">
+          </div>
+          <div class="form-group">
+            <label for="plz">Postleitzahl</label>
+            <input type="text" class="form-control" id="plz">
+          </div>
+          <div class="form-group">
+            <label for="stadt">Stadt</label>
+            <input type="text" class="form-control" id="stadt">
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="expressCheck">
+            <label class="form-check-label" for="expressCheck">Express-Versand (zzgl. 5 €)</label>
+          </div>
+          <button type="submit" class="btn btn-outline-primary"name="action" value="2">Jetzt kostenpflichtig bestellen</button>
+        </form> 
+      </div>
+    </div>
 
-    <tr>
-        <td></td>
-        <td></td>
-        <td>Total: </td>
-        <td><?php 
-        if(!empty($_SESSION["basket"]["express"]))
-        {
-            if($_SESSION["basket"]["express"]== "on")
-            {
-                $summe += 5;
-            }
-        }
-            echo $summe . "€"?>
-        </td>
-    </tr>
+  </div>
+  
+  
+</main>
 
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><button type="submit" class="btn btn-secondary" name="action" value="1">Aktualisieren</button></td>
-    </tr>
-
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><button type="submit" class="btn btn-danger"name="action" value="2">Jetzt bestellen</button></td>
-    </tr>
-    
-  </tbody>
-
-</table>
-    
-</form>
 <footer>
   <div class="logged-in-text">
     <span id="logged_in"></span>&nbsp;<br>

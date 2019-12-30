@@ -3,5 +3,68 @@ footer{
     background-color: #e3f2fd;
 }
 .logged-in-text{
+    margin: 0px;
     padding: 15px;
+}
+.produkt-img{
+    width: 25px;
+    height: auto;
+}
+.image-tablecell{
+    width: 1px;
+}
+.product-table{
+    margin: 0 15px 0 15px;
+}
+
+.column {
+  float: left;
+}
+
+.leftcolumn {   
+  float: left;
+  width: 80%;
+  padding: 15px;
+}
+
+.rightcolumn {
+  float: left;
+  width: 20%;
+  padding: 15px;
+}
+@media screen and (max-width: 2000px) {
+  .leftcolumn{   
+    width: 75%;
+  }
+  .rightcolumn{
+    width: 25%;
+  }
+}
+@media screen and (max-width: 1500px) {
+  .leftcolumn{   
+    width: 65%;
+  }
+  .rightcolumn{
+    width: 35%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .leftcolumn{   
+    width: 50%;
+  }
+  .rightcolumn{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+  }
+}
+
+.number-tablecell{
+    width: 75px;
+}
+.checkout-form{
+    margin: 0 15px 0 15px;
 }
