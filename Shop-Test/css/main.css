@@ -3,13 +3,28 @@
     padding: 10px 0px 10px 15px;
 }
 .card{
-    width: 500px;
-    height: 425px;
-}
-.card-img-top{
-    width: 100px;
-    height: 100px;
+    width: 375px;
+    height: 500px;
 }
 .price-text{
     margin: 0;
+}
+.card-text{
+    margin: 0;
+    height: 115px;
+    font-size: 14px;
+}
+.price-text{
+    margin: 0;
+    font-size: 16px;
+    height: 25px;
+}
+.card-buttons{
+    margin-top: auto;
+    margin-bottom: 0px;
+}
+.card-image{
+    width: 75px;
+    height: 225px;
+    margin: 0 auto;
 }

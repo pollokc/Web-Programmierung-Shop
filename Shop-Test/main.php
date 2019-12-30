@@ -87,37 +87,28 @@ $statement = $pdo->prepare("SELECT * FROM produkt");
     <script src="js/scrolldown.js"></script>
     </center>
 
-
-    <div class="container" id="produktuebersicht">
-<div id="carouselInnocent" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <?php $i=1 ?>
-  <?php foreach ($products as $product):?>
-    <div class="col-sm mb-5">
-            <div class="card">
-        <img src="images/products/truefruits/truefruits<?php echo $product["id"]?>.png" class="card-img-top">
-      <div class="card-body">
-          <h5 class="card-title"><?php echo $product["hersteller"].' '.$product["produktname"]?></h5>
-          <p class="card-text"><?php echo $product["beschreibung"]?></p>
-          <p class="card-text price-text"><?php echo $product["preis"] ?>€</p>
-          <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#exampleModal"> Jetzt bestellen </button>
-        </div>
+    <div class="container-fluid" id="produktuebersicht">
+      <div class= "row d-inline-flex">
+        <?php foreach ($products as $product): ?>
+        <div class="col-sm mb-5">
+          <div class="card">
+            <div class="card-image">
+              <img src="images/products/truefruits/truefruits<?php echo $product["id"]?>.png" class="card-img-top">
+            </div>
+              <div class="card-body">
+              <h5 class="card-title"><?php echo $product["hersteller"].' '.$product["produktname"]?></h5>
+              <p class="card-text"><?php echo $product["beschreibung"]?></p>
+              <p class="card-text price-text"><?php echo $product["preis"] ?>€</p>
+              <div class="card-buttons">
+                <a href="warenkorb.php" class="btn btn-outline-primary mt-3">Jetzt bestellen!</a>
+                <button type="button" class="btn btn-outline-secondary mt-3" data-toggle="modal" data-target="#exampleModal"> Warenkorb hinzufügen! </button>
+              </div>
+            </div>
+            </div>
+          </div>
+      <?php endforeach; ?>
       </div>
-        </div>
     </div>
-    
-    <?php endforeach; ?>
-  </div>
-  <a class="carousel-control-prev" href="#carouselInnocent" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselInnocent" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-  </div>
 </main>
 </body>
 </html>
