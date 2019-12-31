@@ -1,0 +1,15 @@
+.order-container{
+    width: 50%;
+    margin: auto;
+    margin-bottom: 50px;
+}
+.produkt-img{
+    width: 25px;
+    height: auto;
+}
+.table-cell-10{
+    width: 10%;
+}
+.table-cell-20{
+    width: 20%;
+}

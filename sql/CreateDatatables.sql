@@ -24,6 +24,7 @@ CREATE TABLE bestellung(
 	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
 	expresslieferung int(1),
 	bestelldatum DATETIME,
+	summe float,
 	vornachname varchar(255),
 	zusatzinfo varchar(255),
 	strasse varchar(255),
