@@ -10,12 +10,45 @@
   $bestellungStatement = $pdo->prepare("SELECT * FROM `bestellung` WHERE benutzerid = :id;");
   $bestellungStatement->execute(array('id' => $sessionID));
   $userBestellung = $bestellungStatement->fetchAll();
-
+  $userBestellung = array_reverse($userBestellung);
   if(!empty($userBestellung))  //Überprüfen ob user überhaupt Waren gekauft hat
   {
     $produktStatement = $pdo->prepare("SELECT * FROM `produkt`");
     $produktStatement->execute();
     $products = $produktStatement->fetchAll();
+  }
+  if (isset($_GET['action']) and $_GET['action']=='reorder') {
+    $orderid = $_GET['id'];
+    $count = count($userBestellung);
+    $reorder;
+    foreach($userBestellung as $bestellung){
+      if($bestellung["id"] == $orderid){
+        $reorder = $bestellung;
+      }
+    }
+    $insertOrder = $pdo->prepare("INSERT INTO `bestellung`(`benutzerid`, `expresslieferung`, `bestelldatum`, `summe`, `vornachname`, `zusatzinfo`, `strasse`, `plz`, `ort`) VALUES (:id,:express,:datum,:summe,:vornachname,:info,:strasse,:plz,:ort);");
+        $insertOrder->execute(array(
+            'id' => $reorder["benutzerid"],
+            'express' => $reorder["expresslieferung"],
+            'datum' => date("Y-m-d H:i:s"),
+            'summe' => $reorder["summe"],
+            'vornachname' => $reorder["vornachname"],
+            'info' => $reorder["zusatzinfo"],
+            'strasse' => $reorder["strasse"],
+            'plz' => $reorder["plz"],
+            'ort' => $reorder["ort"]
+            ));
+    $newid = $pdo->lastInsertId();
+    foreach($userWarenkorb as $warenkorbProduct){
+      $inserOrderProducts = $pdo->prepare("INSERT INTO `bestellung_hat_produkte`(`bestellungid`, `produktid`, `menge`) VALUES (:bestellungid,:produktid,:menge);");
+      $inserOrderProducts->execute(array(
+          'bestellungid' => $newid,
+          'produktid' => $warenkorbProduct["produktid"],
+          'menge' => $warenkorbProduct["menge"]
+      ));
+    }
+    header("Location: bestellungen.php");
+    die();
   }
 ?>
 <!DOCTYPE html>
@@ -79,7 +112,7 @@
       <div class="order-container">
         <table class="table">
           <tr>
-            <th>Bestellung aufgegeben<br><?php echo $bestelldatum?><br><br><button type="button" class="btn btn-outline-primary">Nochmals kaufen</button></th>
+            <th>Bestellung aufgegeben<br><?php echo $bestelldatum?><br><br><a class="btn btn-outline-primary" href="?action=reorder&id=<?php echo $bestellid ?>">Nochmals kaufen</a></th>
             <th>Summe:<br><?php echo $bestellsumme?> €</th>
             <th>Bestellnr.:<br><?php echo $bestellid."<br><br>"."Versandart:<br>".$lieferArt?></th>
             <th>
