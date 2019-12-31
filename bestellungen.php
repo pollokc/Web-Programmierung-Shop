@@ -66,6 +66,11 @@
       $bestellid = $bestellung["id"];
       $bestellsumme = $bestellung["summe"];
       $bestelldatum = $bestellung["bestelldatum"];
+      $lieferArt = "Standardlieferung";
+      if($bestellung["expresslieferung"] == 1) 
+      { 
+        $lieferArt = "Expresslieferung";
+      }
       $bestellungPositionenStatement = $pdo->prepare("SELECT * FROM `bestellung_hat_produkte` WHERE bestellungid = :id;");
       $bestellungPositionenStatement->execute(array('id' => $bestellid));
       $bestellPositionen = $bestellungPositionenStatement->fetchAll();
@@ -76,7 +81,7 @@
           <tr>
             <th>Bestellung aufgegeben<br><?php echo $bestelldatum?><br><br><button type="button" class="btn btn-outline-primary">Nochmals kaufen</button></th>
             <th>Summe:<br><?php echo $bestellsumme?> €</th>
-            <th>Bestellnr.:<br><?php echo $bestellid?></th>
+            <th>Bestellnr.:<br><?php echo $bestellid."<br><br>"."Versandart:<br>".$lieferArt?></th>
             <th>
               Lieferadresse:<br>
               <?php
@@ -96,14 +101,19 @@
           <?php foreach($bestellPositionen as $position): ?>
             <tr>
               <td class="table-cell-10"><center><img src="images/products/product<?php echo $position["produktid"]?>.png" alt ="" class="produkt-img"></center></td>
-              <td class="table-cell-20"><?php echo $products[$position["produktid"]]["hersteller"]." ".$products[$position["produktid"]]["produktname"]?></td>
-              <td class="table-cell-10"><?php echo $products[$position["produktid"]]["preis"] ?> €</td>
+              <td class="table-cell-20"><?php echo $products[$position["produktid"]-1]["hersteller"]." ".$products[$position["produktid"]-1]["produktname"]?></td>
+              <td class="table-cell-10"><?php echo $products[$position["produktid"]-1]["preis"] ?> €</td>
               <td class="table-cell-10"><?php echo $position["menge"] ?></td>
             </tr>
           <?php endforeach; ?>
         </table>
       </div>
-      <?php endforeach; endif; ?>
+      <?php endforeach; else: ?>
+          <center>
+            <p class="mt-5">Sie haben noch keine Bestellungen aufgegeben!</p>
+            <a class="btn btn-primary mb-5 mt-3" href="main.php">Zu den Produkten</a>
+          </center>
+      <?php endif; ?>
         
       
 </main>
