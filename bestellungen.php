@@ -39,15 +39,18 @@
             'ort' => $reorder["ort"]
             ));
     $newid = $pdo->lastInsertId();
-    foreach($userWarenkorb as $warenkorbProduct){
+    $oldorderStatement = $pdo->prepare("SELECT * FROM `bestellung_hat_produkte` WHERE bestellungid = :id;");
+    $oldorderStatement->execute(array('id' => $reorder["id"]));
+    $oldorderProducts = $oldorderStatement->fetchAll();
+    foreach($oldorderProducts as $orderProduct){
       $inserOrderProducts = $pdo->prepare("INSERT INTO `bestellung_hat_produkte`(`bestellungid`, `produktid`, `menge`) VALUES (:bestellungid,:produktid,:menge);");
       $inserOrderProducts->execute(array(
           'bestellungid' => $newid,
-          'produktid' => $warenkorbProduct["produktid"],
-          'menge' => $warenkorbProduct["menge"]
+          'produktid' => $orderProduct["produktid"],
+          'menge' => $orderProduct["menge"]
       ));
     }
-    header("Location: bestellungen.php");
+    header("Location: bestellungen.php?action=ordersuccess");
     die();
   }
 ?>
@@ -93,6 +96,12 @@
 </header> <!-- Ende der Navigation  -->
 <main>
 <?php
+    if (isset($_GET['action']) and $_GET['action']=='ordersuccess')
+    {
+      echo "<div class='alert alert-success' role='alert'>
+      Ihre Bestellung wurde erfolgreich erneut aufgegeben!
+      </div>";
+    }
   if(!empty($userBestellung)):
     foreach($userBestellung as $bestellung):
     

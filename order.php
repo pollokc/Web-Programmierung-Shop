@@ -1,9 +1,9 @@
 <?php
+    session_start();
     if(empty($_SESSION["userid"]))
     {
         header("Location: index.php");
     }
-    include 'warenkorb.php';
     $userid = $_SESSION["userid"];
     $name = $_POST["name"];
     $anschrift = $_POST["anschrift"];
@@ -11,7 +11,6 @@
     $stadt = $_POST["stadt"];
     $strasse = $_POST["strasse"];
     $express = 0;
-    $summe = $gesamtSumme;
     if(!empty($_POST["expressCheck"])) 
     { 
         $express = 1;
@@ -26,6 +25,10 @@
     $userWarenkorb = $warenkorb->fetchAll();
 
     if(!empty($userWarenkorb) and !empty($products)){
+        $summe = 0;
+        foreach($userWarenkorb as $warenkorbProduct){
+            $summe = $summe + $warenkorbProduct["menge"]*$products[$warenkorbProduct["produktid"]-1]["preis"];
+        }
         $insertOrder = $pdo->prepare("INSERT INTO `bestellung`(`benutzerid`, `expresslieferung`, `bestelldatum`, `summe`, `vornachname`, `zusatzinfo`, `strasse`, `plz`, `ort`) VALUES (:id,:express,:datum,:summe,:vornachname,:info,:strasse,:plz,:ort);");
         $insertOrder->execute(array(
             'id' => $userid,
@@ -50,11 +53,11 @@
         $deleteWarenkorb = $pdo->prepare("DELETE FROM `warenkorb` WHERE benutzerid = :id;");
         $deleteWarenkorb->execute(array('id' => $_SESSION['userid']));
 
-        header("Location: main.php");
+        header("Location: warenkorb.php?action=ordersuccess");
         die();
     }
     else{
-        header("Location: warenkorb.php");
-        die();
+        //header("Location: warenkorb.php");
+        //die();
     }
 ?>

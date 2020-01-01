@@ -66,8 +66,15 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
   </nav>
 </header> <!-- Ende der Navigation  -->
 <main>
+  <?php
+  if (isset($_GET['action']) and $_GET['action']=='ordersuccess')
+    {
+      echo "<div class='alert alert-success' role='alert'>
+      Ihre Bestellung wurde erfolgreich aufgegeben!
+      </div>";
+    }
+  ?>
   <div class="row">
-
     <div class="leftcolumn">
       <div class="product-table">
         <table class="table table-hover">

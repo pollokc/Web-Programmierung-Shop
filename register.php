@@ -5,7 +5,6 @@
     {
         header("Location: main.php");
     }
-    
     $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     if(isset($_GET['register'])) {
         //Post Daten auslesen
@@ -36,8 +35,8 @@
             //Nutzer über Status benachrichtigen
             if($result) {        
                 $message = 'Sie wurden erfolgreich registriert. <a style="color: #000000;" href="http://localhost/Web-Programmierung-Shop/index.php"><br>Zum Login</a>';
-
-                // senden($email, "Registrierungsbestätigung", $message);
+                include "emailsenden.php";
+                senden($email, "Registrierungsbestätigung", $message);
 
             } else {
                 $errorMessage = 'Beim Abspeichern ist leider ein Fehler aufgetreten!';
