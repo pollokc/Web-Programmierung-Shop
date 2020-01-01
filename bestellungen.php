@@ -121,7 +121,7 @@
       <div class="order-container">
         <table class="table">
           <tr>
-            <th>Bestellung aufgegeben<br><?php echo $bestelldatum?><br><br><a class="btn btn-outline-primary" href="?action=reorder&id=<?php echo $bestellid ?>">Nochmals kaufen</a></th>
+            <th>Bestellung aufgegeben<br><?php echo date('d.m.Y', strtotime($bestelldatum)) ?><br><br><a class="btn btn-outline-primary" href="?action=reorder&id=<?php echo $bestellid ?>">Nochmals kaufen</a></th>
             <th>Summe:<br><?php echo $bestellsumme?> €</th>
             <th>Bestellnr.:<br><?php echo $bestellid."<br><br>"."Versandart:<br>".$lieferArt?></th>
             <th>

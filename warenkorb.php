@@ -15,13 +15,30 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
     $products = $produktStatement->fetchAll();
 
 
-
-  if (isset($_GET['action']) and $_GET['action']=='delete') {
-  $userid = $_SESSION["userid"];
-  $productid = $_GET['id'];
-  $deleteItem = $pdo->prepare("DELETE FROM warenkorb WHERE benutzerid = :user AND id = :product");
-  $deleteItem->execute(array('user' => $userid, 'product' => $productid));
-  header("Location: warenkorb.php");
+  if(isset($_GET['action'])){
+    $userid = $_SESSION["userid"];
+    if($_GET['action']=='delete'){
+      $productid = $_GET['id'];
+      $deleteItem = $pdo->prepare("DELETE FROM `warenkorb` WHERE benutzerid = :user AND id = :product");
+      $deleteItem->execute(array('user' => $userid, 'product' => $productid));
+      header("Location: warenkorb.php");
+    }
+    if($_GET['action']=='increase' or $_GET['action']=='decrease'){
+      $productid = $_GET['id'];
+      $selectItem = $pdo->prepare("SELECT * FROM `warenkorb` WHERE `benutzerid` = :user AND `produktid` = :product;");
+      $selectItem->execute(array('user' => $userid, 'product' => $productid));
+      $item = $selectItem->fetch();
+       if($_GET['action']=='decrease' and $item["menge"] > 1){
+         $item["menge"]--;
+       }
+       elseif($_GET['action']=='increase'){
+         $item["menge"]++;
+       }
+       $updateItem =$pdo->prepare("UPDATE `warenkorb` SET `menge`=:menge WHERE `benutzerid` = :user AND `produktid` = :product;");
+       $updateItem->execute(array('menge' => $item["menge"],'user' => $userid, 'product' => $productid));
+       header("Location: warenkorb.php");
+    }
+    
   }
 ?>
 
@@ -93,7 +110,11 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
               <td class="image-tablecell"><center><img src="images/products/product<?php echo $product["produktid"]?>.png" alt ="" class="produkt-img"></center></td>
               <th scope="row"><?php echo $products[$product["produktid"]-1]["hersteller"]." ".$products[$product["produktid"]-1]["produktname"]?></th>
               <td><?php echo $products[$product["produktid"]-1]["preis"]." €"?></td>
-              <td><input type="number" min="1" max="100" class="form-control mb-2 mr-sm-2 number-tablecell" value="<?php echo $product["menge"]?>" name="<?php echo $product["id"]?>"></td>
+              <td>
+                <label name="<?php echo $product["id"]?>"><?php echo $product["menge"]?></label>
+                <a href="?action=increase&id=<?php echo $product["produktid"] ?>" class="btn btn-outline-secondary btn-count">+</a>
+                <a href="?action=decrease&id=<?php echo $product["produktid"] ?>" class="btn btn-outline-secondary btn-count">-</a>
+              </td>
               <td><a href="?action=delete&id=<?php echo $product["id"] ?>"><img src="images/icon/delete.png" width=30 height=auto></a></td>
             </tr>
             <?php endforeach; ?>

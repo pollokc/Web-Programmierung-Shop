@@ -52,12 +52,19 @@
         }
         $deleteWarenkorb = $pdo->prepare("DELETE FROM `warenkorb` WHERE benutzerid = :id;");
         $deleteWarenkorb->execute(array('id' => $_SESSION['userid']));
-
+        //sendMail($userid);
         header("Location: warenkorb.php?action=ordersuccess");
         die();
     }
     else{
         //header("Location: warenkorb.php");
         //die();
+    }
+    function sendMail($id){
+        $userStatement = $pdo->prepare("SELECT * FROM `benutzer` WHERE id = :id;");
+        $userStatement->execute(array('id' => $id));
+        $user = $userStatement->fetch();
+        include "emailsenden.php";
+        senden($user["email"], "Versandbestätigung", $message);
     }
 ?>
