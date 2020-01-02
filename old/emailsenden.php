@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 
 function senden($empfaenger, $betreff, $nachricht)
 {
-    $API_KEY = "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";
+    $API_KEY = "";
 
     $email = new \SendGrid\Mail\Mail(); 
     $email->setFrom("thejuiceboxwi3@gmail.com", "WebShop WI3");
