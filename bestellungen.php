@@ -82,7 +82,15 @@
             <table class="table">
               <tr>
                 <th>Bestellung aufgegeben<br><?php echo date('d.m.Y', strtotime($bestelldatum)) ?><br><br><a class="btn btn-outline-primary" href="order.php?action=reorder&id=<?php echo $bestellid ?>">Nochmals kaufen</a></th>
-                <th>Summe:<br><?php echo $bestellsumme?> €</th>
+                <th>Summe:<br><?php 
+                  if($bestellung["expresslieferung"] == 1) 
+                  { 
+                    echo $bestellsumme+5;
+                  }
+                  else{
+                    echo $bestellsumme;
+                  } ?> €
+                </th>
                 <th>Bestellnr.:<br><?php echo $bestellid."<br><br>"."Versandart:<br>".$lieferArt?></th>
                 <th>
                   Lieferadresse:<br>
