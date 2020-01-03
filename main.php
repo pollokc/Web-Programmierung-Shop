@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
+   
     <header>
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="main.php"><img src="images/icon/smoothie512.png" width="35" height="35" alt=""></a>
@@ -114,8 +115,8 @@
                     <p class="card-text"><?php echo $product["beschreibung"]?></p>
                     <p class="card-text price-text"><?php echo $product["preis"] ?>€</p>
                     <div class="card-buttons">
-                      <a class="btn btn-outline-primary mt-3" href="?action=addCart&id=<?php echo $product["id"] ?>&fast=true">Jetzt bestellen!</a>
-                      <a class="btn btn-outline-secondary mt-3" href="?action=addCart&id=<?php echo $product["id"] ?>">Warenkorb hinzufügen!</a>
+                      <a class="btn btn-outline-primary mt-3"  href="?action=addCart&id=<?php echo $product["id"] ?>&fast=true">Jetzt bestellen!</a>
+                      <a class="btn btn-outline-secondary mt-3" onclick="setScrollXY();" href="?action=addCart&id=<?php echo $product["id"] ?>">Warenkorb hinzufügen!</a>
                     </div>
                   </div>
                 </div>
