@@ -28,6 +28,10 @@
       $insertProduct = $pdo->prepare("INSERT INTO `warenkorb`(`benutzerid`, `produktid`, `menge`) VALUES (:user,:product,1)");
       $insertProduct->execute(array('user' => $userid, 'product' => $productid));
     }
+    if(isset($_GET['fast'])){
+      header("Location: warenkorb.php");
+      die();
+    }
 }
 ?>
 <!DOCTYPE html>
