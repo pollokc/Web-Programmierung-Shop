@@ -34,7 +34,7 @@
             $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_saltedhash, 'salz' => $salz, 'vorname' => $vorname, 'nachname' => $nachname, 'last_login' => $last_login, 'created_at' => $created_at));
             //Nutzer über Status benachrichtigen
             if($result) {        
-                $message = 'Sie wurden erfolgreich registriert. <a style="color: #000000;" href="http://localhost/Web-Programmierung-Shop/index.php"><br>Zum Login</a>';
+                $message = 'Sie wurden erfolgreich registriert. <br><a style="color: #000000;" href="http://localhost/Web-Programmierung-Shop/index.php">Zum Login</a>';
                 include "emailsenden.php";
                 senden($email, "Registrierungsbestätigung", $message);
 

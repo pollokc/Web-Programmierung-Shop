@@ -50,8 +50,10 @@
           'menge' => $orderProduct["menge"]
       ));
     }
-    header("Location: bestellungen.php?action=ordersuccess");
-    die();
+    include "emailsenden.php";
+    bestellBestätigungSenden($reorder["benutzerid"],$newid);
+    //header("Location: bestellungen.php?action=ordersuccess");
+    //die();
   }
 ?>
 <!DOCTYPE html>
