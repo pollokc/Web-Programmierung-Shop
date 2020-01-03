@@ -137,20 +137,20 @@
             <form action="order.php?action=order" method="post">
               <div class="form-group">
                 <label for="name">Vorname und Nachname</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" required>
               </div>
               <div class="form-group">
                 <label for="anschrift">Anschrift</label>
                 <input type="text" class="form-control" id="anschrift" placeholder="Firma, c/o, Gebäude, Zusatzinfo" name="anschrift">
-                <input type="text" class="form-control mt-1" id="straße" placeholder="Straße und Hausnummer" name="strasse">
+                <input type="text" class="form-control mt-1" id="straße" placeholder="Straße und Hausnummer" name="strasse" required>
               </div>
               <div class="form-group">
                 <label for="plz">Postleitzahl</label>
-                <input type="text" class="form-control" id="plz" name="plz">
+                <input type="text" class="form-control" id="plz" name="plz" required>
               </div>
               <div class="form-group">
                 <label for="stadt">Stadt</label>
-                <input type="text" class="form-control" id="stadt" name="stadt">
+                <input type="text" class="form-control" id="stadt" name="stadt" required>
               </div>
               <div class="form-check mb-2">
                 <input type="checkbox" class="form-check-input" name="expressCheck" id="expressCheck">
