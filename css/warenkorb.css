@@ -1,73 +1,91 @@
-.produkt-img{
+.produkt-img
+{
     width: 25px;
     height: auto;
 }
-.image-tablecell{
+.image-tablecell
+{
     width: 1px;
 }
-.product-table{
+.product-table
+{
     margin: 0 15px 0 15px;
 }
-
-.column {
+.column
+{
   float: left;
 }
-
-.leftcolumn {   
+.leftcolumn
+{   
   float: left;
   width: 80%;
   padding: 15px;
 }
-
-.rightcolumn {
+.rightcolumn
+{
   float: left;
   width: 20%;
   padding: 15px;
 }
-@media screen and (max-width: 2000px) {
-  .leftcolumn{   
+@media screen and (max-width: 2000px)
+{
+  .leftcolumn
+  {   
     width: 75%;
   }
-  .rightcolumn{
+  .rightcolumn
+  {
     width: 25%;
   }
 }
-@media screen and (max-width: 1500px) {
-  .leftcolumn{   
+@media screen and (max-width: 1500px)
+{
+  .leftcolumn
+  {   
     width: 65%;
   }
-  .rightcolumn{
+  .rightcolumn
+  {
     width: 35%;
   }
 }
-@media screen and (max-width: 1000px) {
-  .leftcolumn{   
+@media screen and (max-width: 1000px)
+{
+  .leftcolumn
+  {   
     width: 50%;
   }
-  .rightcolumn{
+  .rightcolumn
+  {
     width: 50%;
   }
 }
-@media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
+@media screen and (max-width: 800px)
+{
+  .leftcolumn, .rightcolumn 
+  {   
     width: 100%;
   }
 }
-
-.number-tablecell{
+.number-tablecell
+{
     width: 75px;
 }
-.checkout-form{
+.checkout-form
+{
     margin: 0 15px 0 15px;
 }
-.checkout-sum{
+.checkout-sum
+{
   margin: 0 15px 0 15px;
   
 }
-.checkout-sum{
+.checkout-sum
+{
   font-size: 22px;
   margin-bottom: 25px;
 }
-.btn-count{
+.btn-count
+{
   width: 35px;
 }

@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-body{
+body
+{
     font-family: 'Roboto', sand-serif;
     
 }
-footer{
+footer
+{
     height: 50px;
     background-color: #e3f2fd;
 }
-.logged-in-text{
+.logged-in-text
+{
     padding: 15px;
 }
