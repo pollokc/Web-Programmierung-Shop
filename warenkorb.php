@@ -136,7 +136,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=thejuicebox', 'root', '');
       ?>
       </div>
       <div class="checkout-form">
-        <form action="order.php" method="post">
+        <form action="order.php?action=order" method="post">
           <div class="form-group">
             <label for="name">Vorname und Nachname</label>
             <input type="text" class="form-control" id="name" name="name">

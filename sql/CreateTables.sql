@@ -1,4 +1,5 @@
-CREATE TABLE benutzer(
+CREATE TABLE benutzer
+(
 	id int PRIMARY KEY AUTO_INCREMENT,
 	email varchar(255),
 	passwort varchar(255),
@@ -10,7 +11,8 @@ CREATE TABLE benutzer(
 	logged_in int(1) NOT NULL DEFAULT 0
 );
 
-CREATE TABLE produkt(
+CREATE TABLE produkt
+(
 	id int PRIMARY KEY AUTO_INCREMENT,
 	produktname varchar(255),
 	preis float,
@@ -18,7 +20,8 @@ CREATE TABLE produkt(
 	hersteller varchar(255)
 );
 
-CREATE TABLE bestellung(
+CREATE TABLE bestellung
+(
 	id int PRIMARY KEY AUTO_INCREMENT,
 	benutzerid int,
 	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
@@ -32,7 +35,8 @@ CREATE TABLE bestellung(
 	ort varchar(255)
 );
 
-CREATE TABLE bestellung_hat_produkte(
+CREATE TABLE bestellung_hat_produkte
+(
 	bestellungid int,
 	FOREIGN KEY (bestellungid) REFERENCES bestellung(id),
 	produktid int,
@@ -41,7 +45,8 @@ CREATE TABLE bestellung_hat_produkte(
 	PRIMARY KEY (bestellungid, produktid)
 );
 
-CREATE TABLE warenkorb(
+CREATE TABLE warenkorb
+(
 	id int PRIMARY KEY AUTO_INCREMENT,
 	benutzerid int ,
 	FOREIGN KEY (benutzerid) REFERENCES benutzer(id),
